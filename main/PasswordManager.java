@@ -28,6 +28,36 @@ public class PasswordManager {
         }
         //sc.close();
     }
+    public static void update(HashMap<String,String[]> pword)
+    {
+        System.out.println("Which website's info do you want to update?\n");
+        Scanner scan = new Scanner(System.in);
+        String input = scan.nextLine().toLowerCase();
+
+        //if the key is not found print an error message and return
+        if(!(pword.containsKey(input)))
+        {
+            System.out.println("There are no credentials for this website.");
+            return;
+        }
+        else
+        {
+            System.out.println("Website:" + input);
+            System.out.println("Current Username:" + pword.get(input)[0]);
+            System.out.println("Current Password:" + pword.get(input)[1] +"\n");
+
+            System.out.println("New Username> ");
+            String input_user = scan.nextLine();
+
+            System.out.println("New Password> ");
+            String input_pass = scan.nextLine();
+
+            String newpass[] = {input_user, input_pass};
+            pword.replace(input, newpass);
+            System.out.println("Credentials changed");
+            return;
+        }
+    }
 
 
 
@@ -54,6 +84,18 @@ public class PasswordManager {
                 case 1:  output = "Add script and method call go here";
                     break;
                 case 2:  output = "Update script and method call go here";
+                     if (Passwords.isEmpty()){
+                        System.out.println("Your password manager entry list is currently empty\nConsider adding entries by selecting the 1st option in the home menu.");
+                        System.out.println("...\n");
+                        try {
+                            Thread.sleep(1500);
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                    else{
+                        update(Passwords);
+                    }
                     break;
                 case 3:  output = "Delete script and method call go here";
                     break;
